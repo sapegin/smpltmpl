@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template() should a code frame 1`] = `
+"Error in template untitled:2:9
+foo is not defined
+
+  1 | Hello
+> 2 | world \${foo}!
+    |         ^"
+`;
