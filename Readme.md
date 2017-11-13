@@ -1,5 +1,7 @@
 # smpltmpl
 
+[![Build Status](https://travis-ci.org/sapegin/smpltmpl.svg)](https://travis-ci.org/sapegin/smpltmpl)
+
 Simple templates for Node.js based on ECMAScript [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) syntax.
 
 ## Installation
