@@ -35,17 +35,24 @@ function getErrorMessage(source, exception, filename) {
 	// Take line and column from the last mentioned position which would look like this:
 	// evalmachine.<anonymous>:1:11
 	const positions = exception.stack.match(STACK_REGEXP_ALL);
+	const position = [filename];
 	let line;
 	let col;
 	if (positions) {
 		const m = positions.pop().match(STACK_REGEXP);
-		line = m && m[1];
-		col = m && (m[2] || 1);
+		if (m) {
+			line = m[1];
+			position.push(line);
+			col = m[2];
+			if (col) {
+				position.push(col);
+			}
+		}
 	}
 
-	const code = codeFrame(source, Number(line), Number(col));
+	const code = line ? codeFrame(source, Number(line), Number(col || 1)) : source;
 
-	return `Error in template ${filename}:${line}:${col}\n${exception.message}\n\n${code}`;
+	return `Error in template ${position.join(':')}\n${exception.message}\n\n${code}`;
 }
 
 /**
