@@ -1,3 +1,5 @@
+'use strict';
+
 const template = require('./index').template;
 const templateFromFile = require('./index').templateFromFile;
 

@@ -1,7 +1,7 @@
 {
   "name": "smpltmpl",
   "version": "1.0.0",
-  "description": "Simple templates for Node.js based on ECMAScript template literals syntax.",
+  "description": "Simple templates for Node.js based on ECMAScript template literals syntax",
   "author": {
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
