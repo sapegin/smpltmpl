@@ -23,7 +23,7 @@ describe('template()', () => {
 		const fn = () => template('Hello\n${foo!', { foo: 'Bar' });
 		// Node 4 in some case doesn’t have position information
 		expect(fn).toThrowError(
-			isNode4 ? 'Error in template untitled' : 'Error in template untitled:2:1'
+			isNode4 ? 'Error in template untitled' : 'Error in template untitled:2'
 		);
 	});
 
