@@ -6,6 +6,9 @@ const path = require('path');
 const vm = require('vm');
 const codeFrame = require('babel-code-frame');
 
+const STACK_REGEXP = /evalmachine\.<anonymous>:(\d+)(?::(\d+))?\n/;
+const STACK_REGEXP_ALL = new RegExp(STACK_REGEXP.source, 'g');
+
 /**
  * @param {string} filename
  * @return {string}
@@ -22,7 +25,28 @@ function read(filename) {
 	}
 }
 
-const STACK_REGEXP = /evalmachine\.<anonymous>:(\d+)(?::(\d+))?\n/;
+/**
+ * @param {string} source
+ * @param {Error} exception
+ * @param {string} filename
+ * @return {string}
+ */
+function getErrorMessage(source, exception, filename) {
+	// Take line and column from the last mentioned position which would look like this:
+	// evalmachine.<anonymous>:1:11
+	const positions = exception.stack.match(STACK_REGEXP_ALL);
+	let line;
+	let col;
+	if (positions) {
+		const m = positions.pop().match(STACK_REGEXP);
+		line = m && m[1];
+		col = m && (m[2] || 1);
+	}
+
+	const code = codeFrame(source, Number(line), Number(col));
+
+	return `Error in template ${filename}:${line}:${col}\n${exception.message}\n\n${code}`;
+}
 
 /**
  * @param {string} tmpl
@@ -36,21 +60,7 @@ function template(tmpl, context, filename) {
 	try {
 		return vm.runInNewContext('`' + tmpl + '`', context);
 	} catch (exception) {
-		// Take line and column from the last mentioned position which would look like this:
-		// evalmachine.<anonymous>:1:11
-		const positions = exception.stack.match(new RegExp(STACK_REGEXP, 'g'));
-		let line;
-		let col;
-		if (positions) {
-			const m = positions.pop().match(STACK_REGEXP);
-			line = m && m[1];
-			col = m && (m[2] || 1);
-		}
-
-		const code = codeFrame(tmpl, Number(line), Number(col));
-		throw new Error(
-			`Error in template ${filename}:${line}:${col}\n${exception.message}\n\n${code}`
-		);
+		throw new Error(getErrorMessage(tmpl, exception, filename));
 	}
 }
 
