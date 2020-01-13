@@ -33,9 +33,9 @@
     "literal"
   ],
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-tamia": "^7.1.1",
-    "eslint-plugin-prettier": "^3.1.2",
+    "eslint": "^4.11.0",
+    "eslint-config-tamia": "^4.2.3",
+    "eslint-plugin-prettier": "^2.3.1",
     "husky": "^4.0.7",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
