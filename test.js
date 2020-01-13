@@ -12,7 +12,7 @@ describe('template()', () => {
 	});
 
 	it('should escape `', () => {
-		const fn = () => template('Hello, `${foo}`!', { foo: 'Bar' });
+		const fn = () => template('Hello, \\`${foo}\\`!', { foo: 'Bar' });
 		expect(fn).not.toThrowError();
 
 		const result = fn();

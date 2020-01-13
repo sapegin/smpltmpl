@@ -63,7 +63,6 @@ function getErrorMessage(source, exception, filename) {
  */
 function template(tmpl, context, filename) {
 	filename = filename || 'untitled';
-	tmpl = tmpl.replace(/`/g, '\\`');
 	try {
 		return vm.runInNewContext('`' + tmpl + '`', context);
 	} catch (exception) {
