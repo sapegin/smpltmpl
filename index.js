@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const codeFrame = require('babel-code-frame');
+const codeFrame = require('@babel/code-frame').codeFrameColumns;
 
 const STACK_REGEXP = /evalmachine\.<anonymous>:(\d+)(?::(\d+))?\n/;
 const STACK_REGEXP_ALL = new RegExp(STACK_REGEXP.source, 'g');
