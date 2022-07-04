@@ -5,6 +5,5 @@ exports[`template() should a code frame 1`] = `
 foo is not defined
 
   1 | Hello
-> 2 | world \${foo}!
-    |         ^"
+  2 | world \${foo}!"
 `;
